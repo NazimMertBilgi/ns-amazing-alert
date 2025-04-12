@@ -55,12 +55,19 @@ module.exports = {
       },
     },
     '⚙️': {
-      script: `npx cowsay "@nativescript/* packages will keep your ⚙️ cranking"`,
-      description: '_____________  @nativescript/*  _____________',
+      script: `npx cowsay "@nazimmertbilgi/* packages will keep your ⚙️ cranking"`,
+      description: '_____________  @nazimmertbilgi/*  _____________',
     },
     // packages
     // build output is always in dist/packages
-    '@nativescript': {
+    '@nazimmertbilgi': {
+      // @nazimmertbilgi/ns-amazing-alert
+      'ns-amazing-alert': {
+        build: {
+          script: 'nx run ns-amazing-alert:build.all',
+          description: '@nazimmertbilgi/ns-amazing-alert: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -71,6 +78,10 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
+      'ns-amazing-alert': {
+        script: 'nx run ns-amazing-alert:focus',
+        description: 'Focus on @nazimmertbilgi/ns-amazing-alert',
+      },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',
         description: 'Reset Focus',

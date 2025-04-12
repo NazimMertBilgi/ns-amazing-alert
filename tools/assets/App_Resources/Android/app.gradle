@@ -1,8 +1,10 @@
 // Add additional native dependencies here, for example:
 
-// dependencies {
-//   implementation 'com.google.android.gms:play-services-location:+'
-// }
+dependencies {
+   implementation 'io.github.tutorialsandroid:kalertdialog:20.5.8'
+   implementation 'com.github.TutorialsAndroid:progressx:v6.0.19' //required for kalertdialog lib
+   implementation 'com.github.bumptech.glide:glide:4.14.2'
+ }
 
 android {
   compileSdkVersion 34
@@ -15,4 +17,11 @@ android {
   aaptOptions {
     additionalParameters "--no-version-vectors"
   }
+}
+
+allprojects {
+	repositories {
+    mavenCentral()
+		maven { url 'https://jitpack.io' }
+	}
 }

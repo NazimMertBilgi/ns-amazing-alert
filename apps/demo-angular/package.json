@@ -1,7 +1,8 @@
 {
   "main": "./src/main.ts",
   "dependencies": {
-    "@nativescript/core": "file:../../node_modules/@nativescript/core"
+    "@nativescript/core": "file:../../node_modules/@nativescript/core",
+    "@nazimmertbilgi/ns-amazing-alert": "file:../../dist/packages/ns-amazing-alert"
   },
   "devDependencies": {
     "@nativescript/android": "~8.8.0",

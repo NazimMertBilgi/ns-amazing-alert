@@ -1,0 +1,65 @@
+{
+  "name": "ns-amazing-alert",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/ns-amazing-alert",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/ns-amazing-alert",
+        "tsConfig": "packages/ns-amazing-alert/tsconfig.json",
+        "packageJson": "packages/ns-amazing-alert/package.json",
+        "main": "packages/ns-amazing-alert/index.d.ts",
+        "assets": [
+          "packages/ns-amazing-alert/*.md",
+          "packages/ns-amazing-alert/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/ns-amazing-alert/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts ns-amazing-alert"],
+        "parallel": false
+      },
+      "outputs": ["{workspaceRoot}/dist/packages/ns-amazing-alert"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages ns-amazing-alert"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/ns-amazing-alert/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

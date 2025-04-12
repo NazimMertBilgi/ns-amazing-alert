@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "@demo/shared": ["../../tools/demo/index.ts"]
+      "@demo/shared": ["../../tools/demo/index.ts"],
+      "@nazimmertbilgi/*": ["../../packages/*"],
+      "@nazimmertbilgi/ns-amazing-alert": ["../../packages/ns-amazing-alert/index.d.ts"]
     }
   }
 }

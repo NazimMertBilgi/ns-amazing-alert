@@ -3,7 +3,9 @@
   "compilerOptions": {
     "paths": {
       "~/*": ["src/*"],
-      "@demo/shared": ["tools/demo/index.ts"]
+      "@demo/shared": ["tools/demo/index.ts"],
+      "@nazimmertbilgi/*": ["../../dist/packages/*"],
+      "@nazimmertbilgi/ns-amazing-alert": ["../../packages/ns-amazing-alert/index.d.ts"]
     }
   },
   "files": ["./references.d.ts", "./src/main.ts", "./src/polyfills.ts"],
