@@ -36,7 +36,9 @@ export interface NsAmazingAlertShowOptions {
     imageDisplayType?: 'IMAGE_BIG' | 'IMAGE_CIRCLE';
   };
   ios?: {
-    alertType?: 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'NOTICE_TYPE' | 'WARNING_TYPE' | 'INFO_TYPE' | 'INPUT_TYPE';
+    alertType?: 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'NOTICE_TYPE' | 'WARNING_TYPE' | 'INFO_TYPE' | 'INPUT_TYPE' | 'URL_IMAGE_TYPE';
+    width?: number;
+    height?: number;
     showCancelButton?: boolean;
     showConfirmButton?: boolean;
     showCircularIcon?: boolean;
@@ -60,6 +62,7 @@ export interface NsAmazingAlertShowOptions {
     contentViewColor?: string;
     contentViewBorderColor?: string;
     hideWhenBackgroundViewIsTapped?: boolean;
+    imageURL?: string;
   };
   callback?: (result: 'confirm' | 'cancel', inputValue?: string) => void;
 }

@@ -57,8 +57,8 @@ export class DemoSharedNsAmazingAlert extends DemoSharedBase {
       //}, 2000);
     } else {
       const alert = this.alert.show({
-        title: 'Hello',
-        message: 'World',
+        title: 'Lorem ipsum dolor sit amet',
+        message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         input: {
@@ -66,8 +66,9 @@ export class DemoSharedNsAmazingAlert extends DemoSharedBase {
           defaultValue: 'Hello',
         },
         ios: {
-          alertType: 'INPUT_TYPE',
+          alertType: 'URL_IMAGE_TYPE',
           isAutoDarkMode: true,
+          imageURL: 'https://avatars.githubusercontent.com/u/13032201?s=400&u=76e2be557bcecf2cfd22e48bb6a1ca2239f46336&v=4',
           darkModeTheme: {
             textColor: '#FFFFFF',
             contentViewColor: '#000000',

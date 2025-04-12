@@ -45,6 +45,9 @@ export class NsAmazingAlert extends NsAmazingAlertCommon {
       {
         title: options.title || '',
         message: options.message || '',
+        width: options.ios?.width,
+        height: options.ios?.height,
+        imageURL: options.ios?.imageURL,
         textColor: darkMode ? options.ios?.darkModeTheme?.textColor : options.ios?.textColor,
         contentViewColor: darkMode ? options.ios?.darkModeTheme?.contentViewColor : options.ios?.contentViewColor,
         contentViewBorderColor: darkMode ? options.ios?.darkModeTheme?.contentViewBorderColor : options.ios?.contentViewBorderColor,
