@@ -60,7 +60,6 @@ class NsAmazingAlertSwift: NSObject {
             showCloseButton: false,
             showCircularIcon: showCircularIcon,
             hideWhenBackgroundViewIsTapped: hideWhenBackgroundViewIsTapped,
-            circleBackgroundColor: UIColor(hex: "#FFFFFF"),
             contentViewColor: UIColor(hex: contentViewColor),
             contentViewBorderColor: UIColor(hex: contentViewBorderColor),
             titleColor: UIColor(hex: textColor),

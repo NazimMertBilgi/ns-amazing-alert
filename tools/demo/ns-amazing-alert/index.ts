@@ -66,7 +66,7 @@ export class DemoSharedNsAmazingAlert extends DemoSharedBase {
           defaultValue: 'Hello',
         },
         ios: {
-          alertType: 'INFO_TYPE',
+          alertType: 'INPUT_TYPE',
           isAutoDarkMode: true,
           darkModeTheme: {
             textColor: '#FFFFFF',
