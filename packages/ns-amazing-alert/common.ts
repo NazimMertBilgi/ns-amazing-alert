@@ -36,7 +36,7 @@ export interface NsAmazingAlertShowOptions {
     imageDisplayType?: 'IMAGE_BIG' | 'IMAGE_CIRCLE';
   };
   ios?: {
-    alertType?: 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'NOTICE_TYPE' | 'WARNING_TYPE' | 'INFO_TYPE' | 'INPUT_TYPE' | 'URL_IMAGE_TYPE';
+    alertType?: 'NORMAL_TYPE' | 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'NOTICE_TYPE' | 'WARNING_TYPE' | 'URL_IMAGE_TYPE' | 'INPUT_TYPE';
     width?: number;
     height?: number;
     showCancelButton?: boolean;

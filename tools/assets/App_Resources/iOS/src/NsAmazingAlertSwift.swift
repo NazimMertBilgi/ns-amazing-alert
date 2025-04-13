@@ -39,7 +39,6 @@ class NsAmazingAlertSwift: NSObject {
             case "ERROR_TYPE": alertTypeEnum = SCLAlertViewStyle.error
             case "NOTICE_TYPE": alertTypeEnum = SCLAlertViewStyle.notice
             case "WARNING_TYPE": alertTypeEnum = SCLAlertViewStyle.warning
-            case "INFO_TYPE": alertTypeEnum = SCLAlertViewStyle.info
             case "INPUT_TYPE": alertTypeEnum = SCLAlertViewStyle.edit
             case "URL_IMAGE_TYPE": alertTypeEnum = SCLAlertViewStyle.info
             default: alertTypeEnum = SCLAlertViewStyle.success
@@ -69,7 +68,7 @@ let appearance = SCLAlertView.SCLAppearance(
             kWindowWidth: CGFloat(width),
             kWindowHeight: CGFloat(adjustedHeight),
             showCloseButton: false,
-            showCircularIcon: alertType == "URL_IMAGE_TYPE" ? false : showCircularIcon, // URL_IMAGE_TYPE için circular icon'ı kapatıyoruz
+            showCircularIcon: alertType == "URL_IMAGE_TYPE" || alertType == "NORMAL_TYPE" ? false : showCircularIcon, // URL_IMAGE_TYPE için circular icon'ı kapatıyoruz
             hideWhenBackgroundViewIsTapped: hideWhenBackgroundViewIsTapped,
             contentViewColor: UIColor(hex: contentViewColor),
             contentViewBorderColor: UIColor(hex: contentViewBorderColor),

@@ -66,7 +66,8 @@ export class DemoSharedNsAmazingAlert extends DemoSharedBase {
           defaultValue: 'Hello',
         },
         ios: {
-          alertType: 'URL_IMAGE_TYPE',
+          alertType: 'NORMAL_TYPE',
+          buttonsLayout: 'horizontal',
           isAutoDarkMode: true,
           imageURL: 'https://avatars.githubusercontent.com/u/13032201?s=400&u=76e2be557bcecf2cfd22e48bb6a1ca2239f46336&v=4',
           darkModeTheme: {
