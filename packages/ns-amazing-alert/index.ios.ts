@@ -43,11 +43,13 @@ export class NsAmazingAlert extends NsAmazingAlertCommon {
     // Native Swift metodunu çağır
     nsAmazingAlertSwiftInstance.showAlertWithAllJsonCallback(
       {
+        alertType: options.alertType || 'SUCCESS_TYPE',
         title: options.title || '',
         message: options.message || '',
         width: options.ios?.width,
         height: options.ios?.height,
         imageURL: options.ios?.imageURL,
+        imageLocalName: options.ios?.imageLocalName,
         textColor: darkMode ? options.ios?.darkModeTheme?.textColor : options.ios?.textColor,
         contentViewColor: darkMode ? options.ios?.darkModeTheme?.contentViewColor : options.ios?.contentViewColor,
         contentViewBorderColor: darkMode ? options.ios?.darkModeTheme?.contentViewBorderColor : options.ios?.contentViewBorderColor,
@@ -57,12 +59,12 @@ export class NsAmazingAlert extends NsAmazingAlertCommon {
         cancelButtonColor: darkMode ? options.ios?.darkModeTheme?.cancelButtonColor : options.ios?.cancelButtonColor,
         confirmButtonTextColor: darkMode ? options.ios?.darkModeTheme?.confirmButtonTextColor : options.ios?.confirmButtonTextColor,
         cancelButtonTextColor: darkMode ? options.ios?.darkModeTheme?.cancelButtonTextColor : options.ios?.cancelButtonTextColor,
+        progressBarColor: darkMode ? options.ios?.darkModeTheme?.progressBarColor : options.ios?.progressBarColor,
         showCircularIcon: options.ios?.showCircularIcon !== undefined ? options.ios.showCircularIcon : true,
         showConfirmButton: options.ios?.showConfirmButton !== undefined ? options.ios.showConfirmButton : true,
         showCancelButton: options.ios?.showCancelButton !== undefined ? options.ios.showCancelButton : true,
         hideWhenBackgroundViewIsTapped: options.ios?.hideWhenBackgroundViewIsTapped !== undefined ? options.ios.hideWhenBackgroundViewIsTapped : false,
         input: options.input,
-        alertType: options.ios?.alertType || 'SUCCESS_TYPE',
         animationStyle: options.ios?.animationStyle || 'topToBottom',
         buttonsLayout: options.ios?.buttonsLayout || 'horizontal', // Swift tarafında varsayılan horizontal oldu
       },

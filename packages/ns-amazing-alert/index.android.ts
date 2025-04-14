@@ -10,7 +10,7 @@ export class NsAmazingAlert extends NsAmazingAlertCommon {
     //@ts-ignore
     const KAlertDialog = com.developer.kalert.KAlertDialog;
 
-    const alertType = KAlertDialog[options.android?.alertType ?? 'NORMAL_TYPE'];
+    const alertType = KAlertDialog[options.alertType ?? 'NORMAL_TYPE'];
     const autoDarkMode = options.android?.isAutoDarkMode ?? false;
     let darkMode = false;
 
@@ -45,12 +45,12 @@ export class NsAmazingAlert extends NsAmazingAlertCommon {
     pDialog.setTitleTextGravity(android.view.Gravity[options.android?.titleGravity ?? 'CENTER']); //you can specify your own gravity
     pDialog.setContentText(options.message);
 
-    if (options.android?.alertType === 'INPUT_TYPE') {
+    if (options.alertType === 'INPUT_TYPE') {
       pDialog.setInputFieldHint(options.input?.placeholder ?? '');
       pDialog.setInputFieldText(options.input?.defaultValue ?? '');
     }
 
-    if (options.android?.alertType === 'CUSTOM_IMAGE_TYPE' || (options.android?.alertType === 'URL_IMAGE_TYPE' && options.android?.imageDrawableOrURL)) {
+    if (options.alertType === 'CUSTOM_IMAGE_TYPE' || (options.alertType === 'URL_IMAGE_TYPE' && options.android?.imageDrawableOrURL)) {
       if (typeof options.android?.imageDrawableOrURL === 'number') {
         pDialog.setCustomImage(options.android?.imageDrawableOrURL);
       } else {

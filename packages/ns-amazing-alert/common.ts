@@ -1,6 +1,7 @@
 import { Observable } from '@nativescript/core';
 
 export interface NsAmazingAlertShowOptions {
+  alertType?: 'NORMAL_TYPE' | 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'WARNING_TYPE' | 'PROGRESS_TYPE' | 'CUSTOM_IMAGE_TYPE' | 'URL_IMAGE_TYPE' | 'INPUT_TYPE';
   title: string;
   message: string;
   confirmButtonText?: string;
@@ -13,7 +14,6 @@ export interface NsAmazingAlertShowOptions {
     };
   };
   android?: {
-    alertType?: 'NORMAL_TYPE' | 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'WARNING_TYPE' | 'PROGRESS_TYPE' | 'CUSTOM_IMAGE_TYPE' | 'URL_IMAGE_TYPE' | 'INPUT_TYPE';
     progressBarColor?: string;
     titleGravity?: 'CENTER' | 'START' | 'END';
     messageGravity?: 'CENTER' | 'START' | 'END';
@@ -36,7 +36,6 @@ export interface NsAmazingAlertShowOptions {
     imageDisplayType?: 'IMAGE_BIG' | 'IMAGE_CIRCLE';
   };
   ios?: {
-    alertType?: 'NORMAL_TYPE' | 'SUCCESS_TYPE' | 'ERROR_TYPE' | 'NOTICE_TYPE' | 'WARNING_TYPE' | 'URL_IMAGE_TYPE' | 'INPUT_TYPE';
     width?: number;
     height?: number;
     showCancelButton?: boolean;
@@ -53,6 +52,7 @@ export interface NsAmazingAlertShowOptions {
       confirmButtonColor?: string;
       cancelButtonTextColor?: string;
       confirmButtonTextColor?: string;
+      progressBarColor?: string;
     };
     textColor?: string;
     cancelButtonColor?: string;
@@ -61,8 +61,10 @@ export interface NsAmazingAlertShowOptions {
     confirmButtonTextColor?: string;
     contentViewColor?: string;
     contentViewBorderColor?: string;
+    progressBarColor?: string;
     hideWhenBackgroundViewIsTapped?: boolean;
     imageURL?: string;
+    imageLocalName?: string;
   };
   callback?: (result: 'confirm' | 'cancel', inputValue?: string) => void;
 }

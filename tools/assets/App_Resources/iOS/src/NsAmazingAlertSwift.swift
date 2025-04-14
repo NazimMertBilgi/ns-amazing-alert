@@ -22,6 +22,7 @@ class NsAmazingAlertSwift: NSObject {
         let confirmButtonColor = allJson["confirmButtonColor"] as? String ?? "#26a65b"
         let cancelButtonTextColor = allJson["cancelButtonTextColor"] as? String ?? "#ffffff"
         let confirmButtonTextColor = allJson["confirmButtonTextColor"] as? String ?? "#ffffff"
+        let progressBarColor = allJson["progressBarColor"] as? String ?? ""
         let hideWhenBackgroundViewIsTapped = allJson["hideWhenBackgroundViewIsTapped"] as? Bool ?? false
         let alertType = allJson["alertType"] as? String ?? "success"
         let animationStyle = allJson["animationStyle"] as? String ?? "topToBottom"
@@ -31,6 +32,7 @@ class NsAmazingAlertSwift: NSObject {
         let buttonsLayout = allJson["buttonsLayout"] as? String ?? "horizontal"
         let input = allJson["input"] as? NSDictionary ?? nil
         let imageURLString = allJson["imageURL"] as? String ?? nil
+        let imageLocalName = allJson["imageLocalName"] as? String ?? nil
 
         // Alert stil tipini belirle
         var alertTypeEnum = SCLAlertViewStyle.success
@@ -61,14 +63,14 @@ class NsAmazingAlertSwift: NSObject {
         }
         
         // URL_IMAGE_TYPE için daha büyük bir window height kullan
-        let adjustedHeight = alertType == "URL_IMAGE_TYPE" ? max(height, imageHeight + 150) : height
+        let adjustedHeight = alertType == "URL_IMAGE_TYPE" || alertType == "CUSTOM_IMAGE_TYPE" || alertType == "PROGRESS_TYPE" ? max(height, imageHeight + 150) : height
         
         // Görünüm ayarlarını yapılandır
 let appearance = SCLAlertView.SCLAppearance(
             kWindowWidth: CGFloat(width),
             kWindowHeight: CGFloat(adjustedHeight),
             showCloseButton: false,
-            showCircularIcon: alertType == "URL_IMAGE_TYPE" || alertType == "NORMAL_TYPE" ? false : showCircularIcon, // URL_IMAGE_TYPE için circular icon'ı kapatıyoruz
+            showCircularIcon: alertType == "URL_IMAGE_TYPE" || alertType == "CUSTOM_IMAGE_TYPE" || alertType == "PROGRESS_TYPE" || alertType == "NORMAL_TYPE" ? false : showCircularIcon, // URL_IMAGE_TYPE için circular icon'ı kapatıyoruz
             hideWhenBackgroundViewIsTapped: hideWhenBackgroundViewIsTapped,
             contentViewColor: UIColor(hex: contentViewColor),
             contentViewBorderColor: UIColor(hex: contentViewBorderColor),
@@ -77,7 +79,7 @@ let appearance = SCLAlertView.SCLAppearance(
         )
         
         // Alert nesnesini oluştur
-let alert = SCLAlertView(appearance: appearance)
+        let alert = SCLAlertView(appearance: appearance)
 
         if alertType == "URL_IMAGE_TYPE" {
             if let urlStr = imageURLString, let imageURL = URL(string: urlStr) {
@@ -108,7 +110,7 @@ let alert = SCLAlertView(appearance: appearance)
                             // Ekstra alan hesapla (title ve subtitle için)
                             let titleHeight: CGFloat = 30 // Başlık için minimum yükseklik
                             let subtitleHeight: CGFloat = 50 // Alt başlık için minimum yükseklik
-                            let containerHeight = actualImageHeight + titleHeight + subtitleHeight + 20 // Ekstra boşluk için
+                            let containerHeight = actualImageHeight + titleHeight + subtitleHeight + 10 // Ekstra boşluk için
                             
                             // Container view, tüm alert genişliğinde
                             let containerView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat(width), height: containerHeight))
@@ -181,7 +183,132 @@ let alert = SCLAlertView(appearance: appearance)
                 
                 self.currentAlert = alert.showInfo(title, subTitle: message, animationStyle: animationStyleEnum)
             }
-        } else {
+        }
+        else if alertType == "PROGRESS_TYPE" {
+
+            // Önce butonları ekle
+            if showCancelButton {
+                alert.addButton(cancelButtonText, backgroundColor: UIColor(hex: cancelButtonColor), textColor: UIColor(hex: cancelButtonTextColor), action: {
+                    callback("cancel", nil)
+                    alert.dismiss(animated: true)
+                    self.currentAlert = nil
+                })
+            }
+
+            if showConfirmButton {
+                alert.addButton(confirmButtonText, backgroundColor: UIColor(hex: confirmButtonColor), textColor: UIColor(hex: confirmButtonTextColor), action: {
+                    callback("confirm", nil)
+                    alert.dismiss(animated: true)
+                    self.currentAlert = nil
+                })
+            }
+                            let actualImageHeight = CGFloat(50)
+                            
+                            // Ekstra alan hesapla (title ve subtitle için)
+                            let titleHeight: CGFloat = 30 // Başlık için minimum yükseklik
+                            let subtitleHeight: CGFloat = 50 // Alt başlık için minimum yükseklik
+                            let containerHeight = actualImageHeight + titleHeight + subtitleHeight + 10 // Ekstra boşluk için
+
+                            // Container view, tüm alert genişliğinde
+                            let containerView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat(width), height: containerHeight))
+            
+                            // Loading spinner
+                            let loadingSpinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: containerView.frame.width - 10, height: 50))
+                            loadingSpinner.startAnimating()
+                            if progressBarColor != "" {
+                                loadingSpinner.color = UIColor(hex: progressBarColor)
+                            }
+                            containerView.addSubview(loadingSpinner)
+
+                            // Title etiketi - çok satırlı
+                            let titleLabel = UILabel(frame: CGRect(x: 0, y: actualImageHeight + 10, width: containerView.frame.width - 30, height: titleHeight))
+                            titleLabel.text = title
+                            titleLabel.textColor = UIColor(hex: textColor)
+                            titleLabel.textAlignment = .center
+                            titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+                            titleLabel.numberOfLines = 0 // Sınırsız satır
+                            titleLabel.lineBreakMode = .byWordWrapping // Kelimelerden satır sonu
+                            titleLabel.adjustsFontSizeToFitWidth = false
+                            containerView.addSubview(titleLabel)
+                            
+                            // Subtitle etiketi - çok satırlı
+                            let subtitleLabel = UILabel(frame: CGRect(x: 0, y: actualImageHeight + titleHeight + 10, width: containerView.frame.width - 30, height: subtitleHeight))
+                            subtitleLabel.text = message
+                            subtitleLabel.textColor = UIColor(hex: textColor)
+                            subtitleLabel.textAlignment = .center
+                            subtitleLabel.font = UIFont.systemFont(ofSize: 14)
+                            subtitleLabel.numberOfLines = 0 // Sınırsız satır
+                            subtitleLabel.lineBreakMode = .byWordWrapping // Kelimelerden satır sonu
+                            subtitleLabel.adjustsFontSizeToFitWidth = false
+                            containerView.addSubview(subtitleLabel)
+
+                            // Custom view'ı alert'e ekle
+                            alert.customSubview = containerView
+                            
+                            // Empty title ve subtitle ile göster (gerçek içerik custom view'da)
+                            self.currentAlert = alert.showInfo("", subTitle: "", animationStyle: animationStyleEnum)
+        }
+        else if alertType == "CUSTOM_IMAGE_TYPE" {
+           // Önce butonları ekle
+            if showCancelButton {
+                alert.addButton(cancelButtonText, backgroundColor: UIColor(hex: cancelButtonColor), textColor: UIColor(hex: cancelButtonTextColor), action: {
+                    callback("cancel", nil)
+                    alert.dismiss(animated: true)
+                    self.currentAlert = nil
+                })
+            }
+
+            if showConfirmButton {
+                alert.addButton(confirmButtonText, backgroundColor: UIColor(hex: confirmButtonColor), textColor: UIColor(hex: confirmButtonTextColor), action: {
+                    callback("confirm", nil)
+                    alert.dismiss(animated: true)
+                    self.currentAlert = nil
+                })
+            }
+                            let actualImageHeight = CGFloat(50)
+                            
+                            // Ekstra alan hesapla (title ve subtitle için)
+                            let titleHeight: CGFloat = 30 // Başlık için minimum yükseklik
+                            let subtitleHeight: CGFloat = 50 // Alt başlık için minimum yükseklik
+                            let containerHeight = actualImageHeight + titleHeight + subtitleHeight + 10 // Ekstra boşluk için
+
+                            // Container view, tüm alert genişliğinde
+                            let containerView = UIView(frame: CGRect(x: 0, y: 0, width: CGFloat(width), height: containerHeight))
+                            
+                            // local image
+                            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: containerView.frame.width - 10, height: 50))
+                            imageView.image = UIImage(named: imageLocalName!)
+                            containerView.addSubview(imageView)
+
+                            // Title etiketi - çok satırlı
+                            let titleLabel = UILabel(frame: CGRect(x: 0, y: actualImageHeight + 10, width: containerView.frame.width - 30, height: titleHeight))
+                            titleLabel.text = title
+                            titleLabel.textColor = UIColor(hex: textColor)
+                            titleLabel.textAlignment = .center
+                            titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+                            titleLabel.numberOfLines = 0 // Sınırsız satır
+                            titleLabel.lineBreakMode = .byWordWrapping // Kelimelerden satır sonu
+                            titleLabel.adjustsFontSizeToFitWidth = false
+                            containerView.addSubview(titleLabel)
+                            
+                            // Subtitle etiketi - çok satırlı
+                            let subtitleLabel = UILabel(frame: CGRect(x: 0, y: actualImageHeight + titleHeight + 10, width: containerView.frame.width - 30, height: subtitleHeight))
+                            subtitleLabel.text = message
+                            subtitleLabel.textColor = UIColor(hex: textColor)
+                            subtitleLabel.textAlignment = .center
+                            subtitleLabel.font = UIFont.systemFont(ofSize: 14)
+                            subtitleLabel.numberOfLines = 0 // Sınırsız satır
+                            subtitleLabel.lineBreakMode = .byWordWrapping // Kelimelerden satır sonu
+                            subtitleLabel.adjustsFontSizeToFitWidth = false
+                            containerView.addSubview(subtitleLabel)
+
+                            // Custom view'ı alert'e ekle
+                            alert.customSubview = containerView
+                            
+                            // Empty title ve subtitle ile göster (gerçek içerik custom view'da)
+                            self.currentAlert = alert.showInfo("", subTitle: "", animationStyle: animationStyleEnum)
+        }
+         else {
             if showCancelButton && alertTypeEnum != SCLAlertViewStyle.edit {    
                 alert.addButton(cancelButtonText, backgroundColor: UIColor(hex: cancelButtonColor), textColor: UIColor(hex: cancelButtonTextColor), action: {
                     callback("cancel", nil)
